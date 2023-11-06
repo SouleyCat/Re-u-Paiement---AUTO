@@ -1,0 +1,110 @@
+import React from 'react';
+import PIED from 'file:///C:/Users/jules/Downloads/PIED DE PAGE.png';
+
+const Receipt = ({ data }) => {
+  const {
+    date,
+    name,
+    amount,
+    paymentType,
+    dossierNumber,
+    phoneNumber,
+    paymentReason,
+    classe,
+  } = data;
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  return (
+    <>
+      <div className="py-5 w-100" style={{ position: 'relative', backgroundColor: '#284081' }}>
+      </div>
+
+        <div className="py-5" style={{ position: 'absolute', width: '45px', right: 20, left: 'auto',paddingRight: '20px', backgroundColor: '#7D5D27' }}>
+          {/* Contenu de l'en-tête */}
+        </div>
+
+      <style>
+        {`
+          @media print {
+            .bg-primary {
+              background-color: #007BFF;
+              height: 1px;
+            }
+            .btn-print {
+              display: none;
+            }
+            .hidden-print {
+              display: block !important;
+            }
+          }
+        `}
+      </style>
+
+      <header className="d-flex justify-content-between align-items-center py-3">
+        <div className="logo">
+        <img
+            src="https://cat.sn/storage/0XFJUqtbNQwEZwYXiSSMt6KJLWRTPUHMqA81frjc.png"
+            alt="Your Logo"
+            style={{ maxWidth: '150px', marginRight: '25px' }}
+          />
+        </div>
+      </header>
+      <h1 className="text-center" style={{ textDecoration: 'underline' }}><strong>REÇU DE PAIEMENT</strong></h1>
+
+      <div className="text-center py-3"style={{ margin: '0 auto', paddingLeft: '20px', paddingRight: '20px' }}>
+        <div className='d-flex justify-content-between'>
+          <h4 className="text-left" style={{ fontStyle: 'italic' }}>
+            Date : <strong> {date} </strong>                                                                                                 
+          </h4>
+          <h4 className="text-right" style={{ fontStyle: 'italic' }}>
+            CAT/FIN/ 2023-2024
+          </h4>
+          </div>
+      </div>
+        <br />
+      <div className="content text-left" style={{ margin: '50', paddingLeft: '150px', paddingRight: '10px' }}>
+        
+        <p>NOM DE L’ETUDIANT : <strong> {name} </strong></p>
+        <p>
+          SOMME REÇUE : <strong>{amount} FCFA</strong> 
+        </p>
+        <p>
+         VIA : <strong> {paymentType} </strong>
+        </p>
+        <p>
+          Numéro de Dossier : <strong> {dossierNumber}  </strong>                                   
+        </p>
+        <p>
+          NIVEAU : <strong>{classe}</strong>
+        </p>
+        <p>
+          TEL : <strong> {phoneNumber} </strong>
+        </p>
+        <br/>
+        <p>OBJET DE LA SOMME REÇUE : <strong> {paymentReason} </strong> </p>
+      </div>
+      <br />
+      <br />
+      <br />
+      <button onClick={handlePrint} className="btn btn-primary btn-print">IMPRESSION</button>
+
+      <footer className="text-center py-3">
+      <div className="text-center py-3"style={{ margin: '0 auto', paddingLeft: '20px', paddingRight: '20px' }}>
+          <h5 style={{ textDecoration: 'underline' }} className="text-center">LA COMPTABILITÉ CAT</h5>
+      </div>
+      <div className="hidden-print" style={{ display: 'none', position: 'absolute', bottom: '0', left: '0', right: '0', marginTop: '20px', textAlign: 'center',}}>
+        <img
+          src={PIED}
+          alt="PIED DE PAGE"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
+      </div>
+      </footer>
+    </>
+  );
+};
+
+export default Receipt;

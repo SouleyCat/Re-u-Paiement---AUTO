@@ -1,0 +1,48 @@
+import React from 'react';
+
+function Certificate({ certificateText }) {
+
+
+
+
+    function printCertificate() {
+        window.print();
+    }
+    
+    return (
+        <div className="container">
+            <div className="bg-primary py-3"></div> {/* Bande de couleur */}
+            <header className="d-flex justify-content-between align-items-center py-3">
+                <div className="logo">
+                    <img
+                        src="https://cat.sn/storage/0XFJUqtbNQwEZwYXiSSMt6KJLWRTPUHMqA81frjc.png"
+                        alt="Your Logo"
+                        style={{ maxWidth: '100px', marginRight: '10px' }}
+                    />
+                </div>
+            </header>
+
+            <div className="content">
+                <h1 className="text-center">CERTIFICAT D'INSCRIPTION</h1>
+                <h4 className="text-center" style={{ fontStyle: 'italic' }}>Session Académique 2023-2024</h4>
+                <br/>
+                <p>Madame, Monsieur,</p>
+                <p>{certificateText}</p>
+                <p style={{ fontStyle: 'italic' }}>En foi de quoi cette présente attestation est signée pour faire valoir ce que de droit.</p>
+            </div>
+            <br/>
+            <div>
+                <h4 className="text-center" style={{ textDecoration: 'underline' }}>COLOMBE ACADEMY OF TECHNOLOGY</h4>
+                <h5 className="text-center">Service Scolarité</h5>
+            </div>
+
+            <footer className="text-center py-3">
+                {/* Footer content */}
+            </footer>
+            <button onClick={printCertificate} className="no-print">Imprimer</button>
+
+        </div>
+    );
+}
+
+export default Certificate;
