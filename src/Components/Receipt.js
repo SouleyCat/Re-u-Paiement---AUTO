@@ -90,11 +90,17 @@ const Receipt = ({ data }) => {
       <br />
       <br />
       <button onClick={handlePrint} className="btn btn-primary btn-print">IMPRESSION</button>
-
-      <footer className="text-center py-3">
-      <div className="text-center py-3"style={{ margin: '0 auto', paddingLeft: '20px', paddingRight: '20px' }}>
-          <h5 style={{ textDecoration: 'underline' }} className="text-center">LA COMPTABILITÉ CAT</h5>
+      <div className="container py-3">
+        <div className="d-flex justify-content-between">
+          <div className="">
+            <h5 style={{ textDecoration: 'underline' }} className="text-left">SIGNATURE DE L'ETUDIANT</h5>
+          </div>
+          <div className="">
+            <h5 style={{ textDecoration: 'underline' }} className="text-right">SIGNATURE COMPTABILITÉ</h5>
+          </div>
+        </div>
       </div>
+      <footer className="text-center py-3">
       <div className="hidden-print" style={{ display: 'none', position: 'absolute', bottom: '0', left: '0', right: '0', marginTop: '20px', textAlign: 'center',}}>
         <img
           src={PIED}
