@@ -1,18 +1,13 @@
-# Set the base image to build from 
-FROM node:alpine
-
-# set the working directory
+# Build stage
+FROM node:14-alpine
 WORKDIR /app
-
-# copy package.json and package-lock.json files
-COPY package.json ./
-COPY package-lock.json ./
-
-# install dependencies
+COPY package*.json ./
 RUN npm install
+COPY . .
+RUN npm run build
 
-# copy everything to /app directory
-COPY ./ ./
-
-# run the app
-CMD ["npm", "start"]
+# Runtime stage
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
