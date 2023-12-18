@@ -84,7 +84,7 @@ const Receipt = ({ data }) => {
           TEL : <strong> {phoneNumber} </strong>
         </p>
         <br/>
-        <p>OBJET DE LA SOMME REÇUE : <strong> {paymentReason} </strong> </p>
+        <p>OBJET: <strong> {paymentReason} </strong> </p>
       </div>
       <br />
       <br />
