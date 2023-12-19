@@ -20,8 +20,29 @@ const ReceiptForm = ({ onSave }) => {
     });
   };
 
-  const handleSaveClick = () => {
-    onSave(formData);
+  const handleSaveClick = async () => {
+    try {
+      // Send a POST request to your backend
+      const response = await fetch('http://localhost:3001/api/receipts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log('Receipt saved successfully');
+        // Optionally, you can handle the response or update the UI as needed
+        onSave(formData); // Notify the parent component about the saved data
+      } else {
+        console.error('Error saving receipt:', response.status);
+        // Handle error and update the UI accordingly
+      }
+    } catch (error) {
+      console.error('Error saving receipt:', error);
+      // Handle error and update the UI accordingly
+    }
   };
 
   return (
@@ -30,8 +51,8 @@ const ReceiptForm = ({ onSave }) => {
         className="container mt-3"
         style={{
           display: 'flex',
-          flexDirection: 'column', // Set flex direction to column
-          alignItems: 'center', // Center items horizontally
+          flexDirection: 'column',
+          alignItems: 'center',
           maxWidth: '1000px',
           margin: 'auto',
           marginTop: '10vh',
@@ -43,13 +64,12 @@ const ReceiptForm = ({ onSave }) => {
         <div
           style={{
             display: 'flex',
-            flexDirection: 'row', // Set flex direction to row
-            justifyContent: 'center', // Center items horizontally
-            marginTop: '20px', // Add some space between heading and content
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: '20px',
           }}
         >
-          <div style={{ flex: 1 ,marginRight: '5px'}}>
-            {/* Left side - Image */}
+          <div style={{ flex: 1, marginRight: '5px' }}>
             <img
               src="https://cat.sn/storage/0XFJUqtbNQwEZwYXiSSMt6KJLWRTPUHMqA81frjc.png"
               alt="Cat illustration representing a receipt or payment"
@@ -57,8 +77,7 @@ const ReceiptForm = ({ onSave }) => {
             />
           </div>
           <div style={{ flex: 1, paddingLeft: '20px' }}>
-            {/* Right side - Form */}
-            <form>
+          <form>
               <div className="form-group">
                 <label htmlFor="date" style={{ fontWeight: 'bold' }}>Date du jour :</label>
                 <input
