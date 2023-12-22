@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -19,12 +21,13 @@ const Login = ({ onLogin }) => {
 
       if (email === expectedLogin && password === expectedPassword) {
         // Login successful
-        onLogin();
-
         // Clear form fields and errors
         setEmail("");
         setPassword("");
         setErrors("");
+
+        // Use navigate to redirect to the receipts page
+        navigate('/receipts');
       } else {
         // Login failed
         setErrors("Login Incorrect");

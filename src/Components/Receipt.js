@@ -1,10 +1,11 @@
 import React from 'react';
 import PIED from 'file:///C:/Users/jules/Downloads/PIED DE PAGE.png';
+import { Link } from 'react-router-dom';
 
 const Receipt = ({ data }) => {
   const {
     date,
-    name,
+    nomComplet,
     amount,
     paymentType,
     dossierNumber,
@@ -67,7 +68,7 @@ const Receipt = ({ data }) => {
         <br />
       <div className="content text-left" style={{ margin: '50', paddingLeft: '150px', paddingRight: '10px' }}>
         
-        <p>NOM DE L’ETUDIANT : <strong> {name} </strong></p>
+        <p>NOM DE L’ETUDIANT : <strong> {nomComplet} </strong></p>
         <p>
           SOMME REÇUE : <strong>{amount} FCFA</strong> 
         </p>
@@ -90,6 +91,12 @@ const Receipt = ({ data }) => {
       <br />
       <br />
       <button onClick={handlePrint} className="btn btn-primary btn-print">IMPRESSION</button>
+      <div className="text-end">
+      <Link to="/receipts" className="btn btn-primary">
+        HISTORIQUE
+      </Link>
+    </div>
+
       <div className="container py-3">
         <div className="d-flex justify-content-between">
           <div className="">
