@@ -18,7 +18,9 @@ RUN docker-php-ext-install pdo_mysql
 
 # Copy composer files and install dependencies
 COPY composer.json composer.lock ./
-# RUN composer install --no-scripts --no-autoloader
+
+# Copy the vendor directory if it exists (assumes you have already run `composer install` locally)
+COPY --from=composer:2 /app/vendor /var/www/html/vendor
 
 # Copy the rest of the application code
 COPY . .
@@ -30,7 +32,6 @@ RUN chmod -R 775 storage bootstrap/cache
 # Enable Apache modules and set the document root
 RUN a2enmod rewrite
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
-# Install additional PHP extensions if needed
 
 # Expose port 80
 EXPOSE 80
