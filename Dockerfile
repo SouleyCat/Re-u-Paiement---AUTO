@@ -12,8 +12,8 @@ FROM nginx:alpine
 # Copy built artifacts from the build stage
 COPY dist/ /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Expose port 3000
+EXPOSE 3000
 
 # Entry point for the container
 CMD ["nginx", "-g", "daemon off;"]

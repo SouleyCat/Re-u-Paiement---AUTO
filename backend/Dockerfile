@@ -1,35 +1,39 @@
-# Use the official PHP image
-FROM php:7.4-apache
+# Use the official PHP image as the base image
+FROM php:8.2-apache
 
-# Set the working directory
-WORKDIR /var/www/html
+# Install dependencies for Composer
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install required dependencies
-RUN apt-get update && \
-    apt-get install -y libzip-dev zip && \
-    docker-php-ext-install pdo_mysql zip && \
-    a2enmod rewrite
-
-# Install Composer
+# Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy application files
-COPY . /var/www/html
+# Set the working directory to /var/www/html
+WORKDIR /var/www/html
 
-# Install dependencies
-RUN composer install --no-scripts --no-dev --prefer-dist --optimize-autoloader
+# Install PDO MySQL extension
+RUN docker-php-ext-install pdo_mysql
 
-# Set the correct permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Copy composer files and install dependencies
+COPY composer.json composer.lock ./
+# RUN composer install --no-scripts --no-autoloader
 
-# Copy the Apache virtual host file
-COPY docker/apache2.conf /etc/apache2/sites-available/000-default.conf
+# Copy the rest of the application code
+COPY . .
 
-# Enable Apache site configuration
-RUN a2ensite 000-default.conf
+# Set the correct permissions for the storage and bootstrap cache directories
+RUN chown -R www-data:www-data storage bootstrap/cache
+RUN chmod -R 775 storage bootstrap/cache
+
+# Enable Apache modules and set the document root
+RUN a2enmod rewrite
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+# Install additional PHP extensions if needed
 
 # Expose port 80
 EXPOSE 80
 
-# Start Apache
+# Start the Apache server
 CMD ["apache2-foreground"]
