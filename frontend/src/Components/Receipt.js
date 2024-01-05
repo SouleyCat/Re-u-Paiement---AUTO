@@ -91,7 +91,7 @@ const Receipt = ({ data }) => {
       <br />
       <br />
       <button onClick={handlePrint} className="btn btn-primary btn-print">IMPRESSION</button>
-      <div className="text-end">
+      <div className="text-end btn-print">
       <Link to="/receipts" className="btn btn-primary">
         HISTORIQUE
       </Link>
