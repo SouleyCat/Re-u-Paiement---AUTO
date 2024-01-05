@@ -1,12 +1,8 @@
-version: '3'
-
 services:
 
   paiement-auto-app:
     container_name: paiement-auto-app
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     volumes:
       - ./paiement-auto-app:/var/www/html
     ports:
@@ -18,7 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: receipt_db
     ports:
-      - 3306:3306
+    - 3306:3306
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -26,3 +22,6 @@ services:
       - 9001:80
     environment:
       - PMA_ARBITRARY=1
+
+
+
