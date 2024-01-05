@@ -7,14 +7,8 @@ RUN mkdir -p storage bootstrap/cache
 # Set the correct permissions for storage and bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
-# Supprimer Apache existant
-RUN apt-get purge apache2 -y
-
-# Réinstaller Apache
-RUN apt-get install apache2 -y
-
-# Redémarrer Apache
-RUN service apache2 restart
+# Mod Rewrite
+RUN a2enmod rewrite
 
 # Linux Library
 RUN apt-get update -y && apt-get install -y \
