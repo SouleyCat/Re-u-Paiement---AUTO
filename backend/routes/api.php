@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/receipts', [ReceiptController::class, 'index']);
+Route::get('/receipt/{id}', [ReceiptController::class, 'receiptById']);
 Route::post('/storeReceipt', [ReceiptController::class, 'store']);
 Route::put('/edit/{id}', [ReceiptController::class, 'update']);
 Route::delete('/delete/{id}', [ReceiptController::class, 'destroy']);

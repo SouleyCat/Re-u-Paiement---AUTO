@@ -1,40 +1,32 @@
-# Use the official PHP image as the base image
 FROM php:8.2-apache
-
-# Install dependencies for Composer
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Composer globally
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Set the working directory to /var/www/html
 WORKDIR /var/www/html
 
-# Install PDO MySQL extension
-RUN docker-php-ext-install pdo_mysql
+# Create storage and bootstrap/cache directories
+RUN mkdir -p storage bootstrap/cache
 
-# Copy composer files and install dependencies
-COPY composer.json composer.lock ./
-
-# Copy the vendor directory if it exists (assumes you have already run `composer install` locally)
-COPY --from=composer:2 /app/vendor /var/www/html/vendor
-
-# Copy the rest of the application code
-COPY . .
-
-# Set the correct permissions for the storage and bootstrap cache directories
-RUN chown -R www-data:www-data storage bootstrap/cache
+# Set the correct permissions for storage and bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
-# Enable Apache modules and set the document root
+# Mod Rewrite
 RUN a2enmod rewrite
-RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
-# Expose port 80
-EXPOSE 80
+# Linux Library
+RUN apt-get update -y && apt-get install -y \
+    libicu-dev \
+    libmariadb-dev \
+    unzip zip \
+    zlib1g-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev
 
-# Start the Apache server
-CMD ["apache2-foreground"]
+# Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# PHP Extension
+RUN docker-php-ext-install gettext intl pdo_mysql gd
+
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
