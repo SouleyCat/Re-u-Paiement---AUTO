@@ -36,3 +36,13 @@ RUN docker-php-ext-install gettext intl pdo_mysql gd
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
+
+# Reinstall application dependencies using Composer
+COPY composer.json composer.lock ./
+RUN composer install --no-scripts --no-autoloader
+
+# Copy the rest of the application files
+COPY . .
+
+# Run Composer scripts
+RUN composer dump-autoload --optimize
