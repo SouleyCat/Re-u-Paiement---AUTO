@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PIED from 'file:///C:/Users/jules/Downloads/PIED DE PAGE.png';
 import { Link } from 'react-router-dom';
+import LOGO from 'file:///C:/Users/jules/Downloads/LOGO_CAT.png';
+
 
 
 import { useParams } from 'react-router-dom';
@@ -17,7 +19,7 @@ const ReceiptDetails = () => {
     const fetchReceiptById = async () => {
       try {
         // Fetch selected receipt by ID
-        const response = await axios.get(`http://localhost:9000/api/receipt/${id}`);
+        const response = await axios.get(`http://localhost:8000/api/receipt/${id}`);
         setReceiptData(response.data.receipt);
       } catch (error) {
         console.error('Erreur lors de la récupération des données du reçu:', error);
@@ -61,7 +63,7 @@ const ReceiptDetails = () => {
       <header className="d-flex justify-content-between align-items-center py-3">
         <div className="logo">
         <img
-            src="https://cat.sn/storage/0XFJUqtbNQwEZwYXiSSMt6KJLWRTPUHMqA81frjc.png"
+            src={LOGO}
             alt="Your Logo"
             style={{ maxWidth: '150px', marginRight: '25px' }}
           />

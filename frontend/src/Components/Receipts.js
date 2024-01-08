@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import LOGO from 'file:///C:/Users/jules/Downloads/LOGO_CAT.png';
 import EditReceiptModal from './Modals/EditReceiptModal';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,7 +20,7 @@ const Receipts = () => {
   const fetchReceipts = async () => {
     try {
       // Fetch all receipts from the backend
-      const response = await axios.get('http://localhost:9000/api/receipts');
+      const response = await axios.get('http://localhost:8000/api/receipts');
       setReceipts(response.data.receipts);
     } catch (error) {
       console.error('Error fetching receipts:', error.response ? error.response.data : error.message);
@@ -51,7 +52,7 @@ const Receipts = () => {
   const handleDelete = async (id) => {
     try {
       // Send a DELETE request to delete the receipt
-      await axios.delete(`http://localhost:9000/api/delete/${id}`);
+      await axios.delete(`http://localhost:8000/api/delete/${id}`);
       // Update the local state after successful deletion
       setReceipts((prevReceipts) => prevReceipts.filter((receipt) => receipt.id !== id));
     } catch (error) {
@@ -73,7 +74,7 @@ const Receipts = () => {
   return (
     <>
     <header style={{ textAlign: 'center', padding: '20px', backgroundColor: '#f8f9fa' }}>
-        <img src="https://cat.sn/storage/0XFJUqtbNQwEZwYXiSSMt6KJLWRTPUHMqA81frjc.png" alt="Logo" style={{ height: '100px' }} />
+        <img src={LOGO} alt="Logo" style={{ height: '100px' }} />
         <h1 className="mb-4">Historique de Reçus</h1>
       </header>
     <div
@@ -91,7 +92,7 @@ const Receipts = () => {
             <th scope="col">NUMERO DOSSIER</th>
             <th scope="col">Nom Complet</th>
             <th scope="col">Date</th>
-            <th scope="col">Amount</th>
+            <th scope="col">Somme</th>
             <th scope="col">Type de Paiement</th>
             <th scope="col" className='text-center'>Actions</th>
           </tr>

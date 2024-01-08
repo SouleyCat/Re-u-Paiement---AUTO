@@ -1,5 +1,6 @@
 import React from 'react';
 import PIED from 'file:///C:/Users/jules/Downloads/PIED DE PAGE.png';
+import LOGO from 'file:///C:/Users/jules/Downloads/LOGO_CAT.png';
 import { Link } from 'react-router-dom';
 
 const Receipt = ({ data }) => {
@@ -47,7 +48,7 @@ const Receipt = ({ data }) => {
       <header className="d-flex justify-content-between align-items-center py-3">
         <div className="logo">
         <img
-            src="https://cat.sn/storage/0XFJUqtbNQwEZwYXiSSMt6KJLWRTPUHMqA81frjc.png"
+            src={LOGO}
             alt="Your Logo"
             style={{ maxWidth: '150px', marginRight: '25px' }}
           />

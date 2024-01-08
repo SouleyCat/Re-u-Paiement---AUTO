@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import LOGO from 'file:///C:/Users/jules/Downloads/LOGO_CAT.png';
+
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -46,9 +48,10 @@ const Login = () => {
     <div className="container" style={{ display: 'flex', margin: 'auto', marginTop: '15vh' }}>
       <div style={{ flex: 1 }}>
         <img
-          src="https://cat.sn/storage/0XFJUqtbNQwEZwYXiSSMt6KJLWRTPUHMqA81frjc.png"
+          src={LOGO}
           alt="Logo"
           className="img-fluid"
+          style={{ width: '80%', height: 'auto', alignSelf: 'flex-start' }}
         />
       </div>
       <div style={{ flex: 1 }}>
@@ -58,7 +61,9 @@ const Login = () => {
         <form>
           <div className="mb-3">
             <label htmlFor="login" className="form-label">
-              Login
+              <strong>
+                Login
+              </strong>
             </label>
             <input
               type="text"
@@ -73,7 +78,9 @@ const Login = () => {
 
           <div className="mb-3">
             <label htmlFor="password" className="form-label">
-              Mot De Passe
+              <strong>
+                  Mot De Passe
+                </strong>
             </label>
             <div className="input-group">
               <input

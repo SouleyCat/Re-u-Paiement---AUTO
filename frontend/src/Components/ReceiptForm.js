@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import LOGO from 'file:///C:/Users/jules/Downloads/LOGO_CAT.png';
+
 
 const ReceiptForm = ({ onSave }) => {
   const [formData, setFormData] = useState({
@@ -8,7 +10,7 @@ const ReceiptForm = ({ onSave }) => {
     amount: '',
     paymentType: 'Espèce',
     dossierNumber: '',
-    phoneNumber: '',
+    phoneNumber: '-',
     paymentReason: '',
     classe: '',
   });
@@ -24,7 +26,7 @@ const ReceiptForm = ({ onSave }) => {
   const handleSaveClick = async () => {
     try {
       // Send a POST request to your Laravel backend API endpoint
-      const response = await axios.post('http://localhost:9000/api/storeReceipt', formData);
+      const response = await axios.post('http://localhost:8000/api/storeReceipt', formData);
 
       // Handle the response as needed
       console.log('Response from server:', response.data);
@@ -64,7 +66,7 @@ const ReceiptForm = ({ onSave }) => {
           <div style={{ flex: 1, marginRight: '10px' }}>
             {/* Left side - Image */}
             <img
-              src="https://cat.sn/storage/0XFJUqtbNQwEZwYXiSSMt6KJLWRTPUHMqA81frjc.png"
+              src={LOGO}
               alt="Cat illustration representing a receipt or payment"
               style={{ width: '100%', height: 'auto', marginBottom: '10px' }}
             />
