@@ -81,7 +81,7 @@ const Receipts = () => {
       className="container mt-4 bg-white" >    
         <div className="text-end">
       <Link to="/receiptform" className="btn btn-primary">
-        Nouveau
+        Nouveauuuu
       </Link>
     </div>
     <br/>
