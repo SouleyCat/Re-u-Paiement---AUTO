@@ -20,7 +20,7 @@ const Receipts = () => {
   const fetchReceipts = async () => {
     try {
       // Fetch all receipts from the backend
-      const response = await axios.get('http://localhost:8000/api/receipts');
+      const response = await axios.get('http://172.16.4.46/:8000/api/receipts');
       setReceipts(response.data.receipts);
     } catch (error) {
       console.error('Error fetching receipts:', error.response ? error.response.data : error.message);
@@ -52,7 +52,7 @@ const Receipts = () => {
   const handleDelete = async (id) => {
     try {
       // Send a DELETE request to delete the receipt
-      await axios.delete(`http://localhost:8000/api/delete/${id}`);
+      await axios.delete(`http://172.16.4.46:8000/api/delete/${id}`);
       // Update the local state after successful deletion
       setReceipts((prevReceipts) => prevReceipts.filter((receipt) => receipt.id !== id));
     } catch (error) {
@@ -63,7 +63,7 @@ const Receipts = () => {
   const updateReceipt = async (id, editedData) => {
     try {
       // Send a PUT request to update the receipt
-      await axios.put(`http://localhost/api/edit/${id}`, editedData);
+      await axios.put(`http://172.16.4.46/api/edit/${id}`, editedData);
       // Update the local state or refetch the data
       fetchReceipts();
     } catch (error) {
