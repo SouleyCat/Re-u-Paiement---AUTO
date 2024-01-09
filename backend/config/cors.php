@@ -21,7 +21,7 @@ return [
 
     'allowed_origins' => [
         '*',
-        'http://172.16.4.46:8000/',
+        'http://172.16.4.46:*/',
     ],
 
     'allowed_origins_patterns' => [],
