@@ -10,7 +10,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy built artifacts from the build stage
-COPY dist/ /usr/share/nginx/html
+COPY build/ /usr/share/nginx/html
 
 # Expose port 3000
 EXPOSE 3000

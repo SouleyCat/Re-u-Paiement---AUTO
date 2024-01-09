@@ -1,48 +1,24 @@
-FROM php:8.2-apache
-WORKDIR /var/www/html
+FROM php:8.2-fpm
 
-# Create storage and bootstrap/cache directories
-RUN mkdir -p storage bootstrap/cache
-
-# Set the correct permissions for storage and bootstrap/cache
-RUN chmod -R 775 storage bootstrap/cache
-
-# Mod Rewrite
-RUN a2enmod rewrite
-
-# Linux Library
-RUN apt-get update -y && apt-get install -y \
-    libicu-dev \
-    libmariadb-dev \
-    unzip zip \
-    zlib1g-dev \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
     libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
 
-# Copy the custom Apache virtual host configuration
-COPY apache-vhost.conf /etc/apache2/sites-available/000-default.conf
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Modify Apache configuration to allow all access
-RUN sed -i 's/Require all denied/Require all granted/g' /etc/apache2/sites-available/000-default.conf
-
-# Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# PHP Extension
+# Install PHP extensions
 RUN docker-php-ext-install gettext intl pdo_mysql gd
 
-RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Reinstall application dependencies using Composer
-COPY composer.json composer.lock ./
-RUN composer install --no-scripts --no-autoloader
+# Set working directory
+WORKDIR /var/www
 
-# Copy the rest of the application files
-COPY . .
-
-# Run Composer scripts
-RUN composer dump-autoload --optimize
