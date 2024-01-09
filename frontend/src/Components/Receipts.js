@@ -20,7 +20,7 @@ const Receipts = () => {
   const fetchReceipts = async () => {
     try {
       // Fetch all receipts from the backend
-      const response = await axios.get('http://172.16.4.46/:8000/api/receipts');
+      const response = await axios.get('http://172.16.4.46:8000/api/receipts');
       setReceipts(response.data.receipts);
     } catch (error) {
       console.error('Error fetching receipts:', error.response ? error.response.data : error.message);
