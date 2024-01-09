@@ -19,6 +19,12 @@ const Receipt = ({ data }) => {
     window.print();
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: '2-digit' };
+    const formattedDate = new Date(dateString).toLocaleDateString('fr-FR', options);
+    return formattedDate;
+  };
+
   return (
     <>
       <div className="py-5 w-100" style={{ position: 'relative', backgroundColor: '#284081' }}>
@@ -59,7 +65,7 @@ const Receipt = ({ data }) => {
       <div className="text-center py-3"style={{ margin: '0 auto', paddingLeft: '20px', paddingRight: '20px' }}>
         <div className='d-flex justify-content-between'>
           <h4 className="text-left" style={{ fontStyle: 'italic' }}>
-            Date : <strong> {date} </strong>                                                                                                 
+            Date : <strong style={{ textTransform: 'uppercase' }}> {formatDate(date)} </strong>                                                                                                 
           </h4>
           <h4 className="text-right" style={{ fontStyle: 'italic' }}>
             CAT/FIN/ 2023-2024
@@ -69,15 +75,15 @@ const Receipt = ({ data }) => {
         <br />
       <div className="content text-left" style={{ margin: '50', paddingLeft: '150px', paddingRight: '10px' }}>
         
-        <p>NOM DE L’ETUDIANT : <strong> {nomComplet} </strong></p>
+        <p>NOM DE L’ETUDIANT : <strong style={{ textTransform: 'uppercase' }}> {nomComplet} </strong></p>
         <p>
           SOMME REÇUE : <strong>{amount} FCFA</strong> 
         </p>
         <p>
-         VIA : <strong> {paymentType} </strong>
+         VIA : <strong style={{ textTransform: 'uppercase' }}> {paymentType} </strong>
         </p>
         <p>
-          Numéro de Dossier : <strong> {dossierNumber}  </strong>                                   
+          Numéro de Dossier : <strong style={{ textTransform: 'uppercase' }}> {dossierNumber}  </strong>                                   
         </p>
         <p>
           NIVEAU : <strong>{classe}</strong>

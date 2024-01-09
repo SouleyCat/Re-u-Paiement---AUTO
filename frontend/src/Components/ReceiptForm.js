@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import LOGO from 'file:///C:/Users/jules/Downloads/LOGO_CAT.png';
+import { Link } from 'react-router-dom';
 
 
 const ReceiptForm = ({ onSave }) => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     date: '',
     nomComplet: '',
     amount: '',
@@ -13,7 +14,9 @@ const ReceiptForm = ({ onSave }) => {
     phoneNumber: '-',
     paymentReason: '',
     classe: '',
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +36,9 @@ const ReceiptForm = ({ onSave }) => {
 
       // Optionally, you can pass the saved data back to the parent component
       onSave(response.data.receipt);
+
+      // Réinitialiser les données du formulaire après avoir généré le reçu
+      setFormData(initialFormData);
     } catch (error) {
       // Handle errors
       console.error('Error:', error.response ? error.response.data : error.message);
@@ -99,7 +105,7 @@ const ReceiptForm = ({ onSave }) => {
                 <div className="form-group" style={{ marginRight: '10px' }}>
                   <label htmlFor="amount" style={{ fontWeight: 'bold' }}>Somme reçue :</label>
                   <input
-                    type="text"
+                    type="number"
                     name="amount"
                     value={formData.amount}
                     onChange={handleInputChange}
@@ -175,6 +181,12 @@ const ReceiptForm = ({ onSave }) => {
                 >
                   GÉNÉRER
                 </button>
+              </div>
+              <br/>
+              <div className="form-group">
+                <Link to="/receipts" className="btn btn-primary">
+                  RETOUR
+                </Link>
               </div>
             </form>
           </div>
