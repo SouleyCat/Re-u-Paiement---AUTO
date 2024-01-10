@@ -13,7 +13,7 @@ FROM nginx:alpine
 COPY dist/ /usr/share/nginx/html
 
 # Expose port 3000
-EXPOSE 3000
+EXPOSE 80
 
 # Entry point for the container
 CMD ["nginx", "-g", "daemon off;"]
