@@ -30,11 +30,11 @@ const Receipts = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: '2-digit' };
-    const formattedDate = new Date(dateString).toLocaleDateString('fr-FR', options);
-    return formattedDate;
-  };
+  // const formatDate = (dateString) => {
+  //   const options = { year: 'numeric', month: 'long', day: '2-digit' };
+  //   const formattedDate = new Date(dateString).toLocaleDateString('fr-FR', options);
+  //   return formattedDate;
+  // };
 
   const formatMonth = (month) => {
     const options = { month: 'long' };
