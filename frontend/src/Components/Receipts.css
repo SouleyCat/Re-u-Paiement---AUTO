@@ -9,11 +9,3 @@
     border: 1px solid #000;
   }
   
-.small-table {
-    font-size: 11px; /* Modifiez cette valeur en fonction de la taille souhaitée */
-  }
-  
-.small-table th,
-.small-table td {
-    padding: 34px; /* Modifiez cette valeur en fonction de l'espacement souhaité */
-  }

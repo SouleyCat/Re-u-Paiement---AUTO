@@ -94,12 +94,6 @@ const Receipts = () => {
       </header>
 
       <div className="container mt-4 bg-white">
-        <div className="text-end mb-3">
-          <Link to="/receiptform" className="btn btn-primary">
-            Nouveau
-          </Link>
-        </div>
-
         <div className="mb-4">
           {/* Filter inputs */}
           <div className="row">
@@ -166,6 +160,11 @@ const Receipts = () => {
                 ))}
               </select>
             </div>
+            <div className="col-md-2">
+          <Link to="/receiptform" className="btn btn-primary">
+            Nouveau
+          </Link>
+        </div>
           </div>
         </div>
 
@@ -176,7 +175,7 @@ const Receipts = () => {
               <th scope="col">NUMERO DOSSIER</th>
               <th scope="col">Nom Complet</th>
               <th scope="col">Classe</th>
-              <th scope="col">Date</th>
+              {/* <th scope="col">Date</th> */}
               <th scope="col">Somme</th>
               <th scope="col">Objet</th>
               <th scope="col">Type de Paiement</th>
@@ -191,7 +190,7 @@ const Receipts = () => {
                 <th scope="row">{receipt.dossierNumber}</th>
                 <td>{receipt.nomComplet}</td>
                 <td>{receipt.classe}</td>
-                <td>{formatDate(receipt.date)}</td>
+                {/* <td>{formatDate(receipt.date)}</td> */}
                 <td className="individual-amount-cell">
                   {parseInt(receipt.amount).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".")} FCFA
                 </td>
