@@ -188,14 +188,14 @@ const Receipts = () => {
             {filteredReceipts.map((receipt) => (
               <tr key={receipt.id}>
                 <th scope="row">{receipt.dossierNumber}</th>
-                <td>{receipt.nomComplet}</td>
+                <td style={{ textTransform: 'uppercase' }}>{receipt.nomComplet}</td>
                 <td>{receipt.classe}</td>
                 {/* <td>{formatDate(receipt.date)}</td> */}
                 <td className="individual-amount-cell">
                   {parseInt(receipt.amount).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".")} FCFA
                 </td>
-                <td>{receipt.paymentReason}</td>
-                <td>{receipt.paymentType}</td>
+                <td style={{ textTransform: 'uppercase' }}>{receipt.paymentReason}</td>
+                <td style={{ textTransform: 'uppercase' }}>{receipt.paymentType}</td>
                 <td>
                   <Link to={`/receipt/${receipt.id}`}>
                     <button type="button" className="btn btn-outline-secondary" style={{ marginLeft: '22px' }}>
