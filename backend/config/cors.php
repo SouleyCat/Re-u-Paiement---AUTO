@@ -21,7 +21,7 @@ return [
 
     'allowed_origins' => [
         '*',
-        'http://efacturation.cat.sn/',
+        'http://172.16.4.46:3000/',
     ],
 
     'allowed_origins_patterns' => [],
