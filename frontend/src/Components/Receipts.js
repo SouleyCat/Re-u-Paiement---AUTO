@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LOGO from 'file:///C:/Users/jules/Downloads/LOGO_CAT.png';
-import EditReceiptModal from './Modals/EditReceiptModal';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 const Receipts = () => {
   const [receipts, setReceipts] = useState([]);
-  const [selectedReceipt, setSelectedReceipt] = useState(null);
-  const [isModalOpen, setModalOpen] = useState(false);
   const [nameFilter, setNameFilter] = useState('');
   const [objetFilter, setObjetFilter] = useState('');
   const [monthFilter, setMonthFilter] = useState('');
@@ -24,6 +21,8 @@ const Receipts = () => {
   const fetchReceipts = async () => {
     try {
       const response = await axios.get('http://172.16.4.46:8000/api/receipts');
+      // const response = await axios.get('http://localhost:8000/api/receipts');
+
       setReceipts(response.data.receipts);
     } catch (error) {
       console.error('Error fetching receipts:', error.response ? error.response.data : error.message);
@@ -43,33 +42,21 @@ const Receipts = () => {
   };
   
 
-  const handleModalClose = () => {
-    setModalOpen(false);
-    setSelectedReceipt(null);
-  };
 
-  const handleSaveChanges = (editedData) => {
-    updateReceipt(selectedReceipt.id, editedData);
-    handleModalClose();
-  };
+
+
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://172.16.4.46:8000/api/delete/${id}`);
+      // await axios.delete(`http://172.16.4.46:8000/api/delete/${id}`);
+      await axios.delete(`http://localhost:8000/api/delete/${id}`);
       setReceipts((prevReceipts) => prevReceipts.filter((receipt) => receipt.id !== id));
     } catch (error) {
       console.error('Error deleting receipt:', error.response ? error.response.data : error.message);
     }
   };
 
-  const updateReceipt = async (id, editedData) => {
-    try {
-      await axios.put(`http://172.16.4.46/api/edit/${id}`, editedData);
-      fetchReceipts();
-    } catch (error) {
-      console.error('Error updating receipt:', error.response ? error.response.data : error.message);
-    }
-  };
+
 
   const filteredReceipts = receipts.filter((receipt) => {
     const nameMatch = receipt.nomComplet.toLowerCase().includes(nameFilter.toLowerCase());
@@ -215,7 +202,7 @@ const Receipts = () => {
               </tr>
             ))}
             <tr>
-              <td colSpan="4">Total:</td>
+              <td colSpan="3">Total:</td>
               <td className="total-amount-cell">
                 <strong>
                 {(
@@ -228,33 +215,6 @@ const Receipts = () => {
           </tbody>
         </table>
 
-        {selectedReceipt && (
-          <div className="modal" tabIndex="-1" role="dialog" style={{ display: isModalOpen ? 'block' : 'none' }}>
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Edit Receipt</h5>
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                    onClick={handleModalClose}
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body">
-                  <EditReceiptModal
-                    receiptData={selectedReceipt}
-                    onSave={handleSaveChanges}
-                    onClose={handleModalClose}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
       <br/>
       <br/>

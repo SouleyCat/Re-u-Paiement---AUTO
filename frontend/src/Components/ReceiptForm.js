@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import LOGO from 'file:///C:/Users/jules/Downloads/LOGO_CAT.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const ReceiptForm = ({ onSave }) => {
@@ -16,6 +16,7 @@ const ReceiptForm = ({ onSave }) => {
     classe: '',
   };
 
+
   const [formData, setFormData] = useState(initialFormData);
 
   const handleInputChange = (e) => {
@@ -25,20 +26,23 @@ const ReceiptForm = ({ onSave }) => {
       [name]: value,
     });
   };
+  const navigate = useNavigate();
 
   const handleSaveClick = async () => {
     try {
       // Send a POST request to your Laravel backend API endpoint
       const response = await axios.post('http://172.16.4.46:8000/api/storeReceipt', formData);
+      // const response = await axios.post('http://localhost:8000/api/storeReceipt', formData);
 
       // Handle the response as needed
       console.log('Response from server:', response.data);
 
-      // Optionally, you can pass the saved data back to the parent component
-      onSave(response.data.receipt);
+
 
       // Réinitialiser les données du formulaire après avoir généré le reçu
       setFormData(initialFormData);
+      // Redirect to receiptdetails page with the newly created receipt's ID
+      navigate(`/receipt/${response.data.receipt.id}`);
     } catch (error) {
       // Handle errors
       console.error('Error:', error.response ? error.response.data : error.message);
@@ -145,11 +149,11 @@ const ReceiptForm = ({ onSave }) => {
                   className="form-control"
                 >
                   <option value="">Sélectionnez la classe</option>
-                  <option value="LICENCE 1">LICENCE 1</option>
-                  <option value="LICENCE 2">LICENCE 2</option>
-                  <option value="LICENCE 3">LICENCE 3</option>
-                  <option value="MASTER 1">MASTER 1</option>
-                  <option value="MASTER 2">MASTER 2</option>
+                  <option value="LICENCE 1">L1</option>
+                  <option value="LICENCE 2">L2</option>
+                  <option value="LICENCE 3">L3</option>
+                  <option value="MASTER 1">M1</option>
+                  <option value="MASTER 2">M2</option>
                 </select>
               </div>
               <div className="form-group">
