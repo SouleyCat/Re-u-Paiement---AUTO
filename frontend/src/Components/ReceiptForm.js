@@ -149,11 +149,11 @@ const ReceiptForm = ({ onSave }) => {
                   className="form-control"
                 >
                   <option value="">Sélectionnez la classe</option>
-                  <option value="LICENCE 1">L1</option>
-                  <option value="LICENCE 2">L2</option>
-                  <option value="LICENCE 3">L3</option>
-                  <option value="MASTER 1">M1</option>
-                  <option value="MASTER 2">M2</option>
+                  <option value="L1">L1</option>
+                  <option value="L2">L2</option>
+                  <option value="L3">L3</option>
+                  <option value="M1">M1</option>
+                  <option value="M2">M2</option>
                 </select>
               </div>
               <div className="form-group">
