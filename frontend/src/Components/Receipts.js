@@ -166,7 +166,7 @@ const Receipts = () => {
               <th scope="col">Somme</th>
               <th scope="col">Objet</th>
               <th scope="col">Type de Paiement</th>
-              <th scope="col" className="text-center">
+              <th scope="col" width="200" className="text-center">
                 Actions
               </th>
             </tr>
@@ -179,7 +179,7 @@ const Receipts = () => {
                 <td>{receipt.classe}</td>
                 {/* <td>{formatDate(receipt.date)}</td> */}
                 <td className="individual-amount-cell">
-                  {parseInt(receipt.amount).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".")} FCFA
+                  {parseInt(receipt.amount).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".")} 
                 </td>
                 <td style={{ textTransform: 'uppercase' }}>{receipt.paymentReason}</td>
                 <td style={{ textTransform: 'uppercase' }}>{receipt.paymentType}</td>
@@ -196,7 +196,7 @@ const Receipts = () => {
                     style={{ marginLeft: '14px' }}
                     onClick={() => handleDelete(receipt.id)}
                   >
-                    Supprimer
+                    SUPPRIMER
                   </button>
                 </td>
               </tr>
