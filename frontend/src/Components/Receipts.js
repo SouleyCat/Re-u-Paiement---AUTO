@@ -166,7 +166,7 @@ const Receipts = () => {
               <th scope="col">Somme</th>
               <th scope="col">Objet</th>
               <th scope="col">Type de Paiement</th>
-              <th scope="col" width="200" className="text-center">
+              <th scope="col" width="200" className="text-left">
                 Actions
               </th>
             </tr>
