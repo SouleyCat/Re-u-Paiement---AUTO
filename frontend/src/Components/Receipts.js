@@ -10,6 +10,7 @@ const Receipts = () => {
   const [nameFilter, setNameFilter] = useState('');
   const [objetFilter, setObjetFilter] = useState('');
   const [monthFilter, setMonthFilter] = useState('');
+  const [yearFilter, setYearFilter] = useState('');
   const [paymentTypeFilter, setPaymentTypeFilter] = useState('');
   const [classeFilter, setClasseFilter] = useState('');
 
@@ -48,8 +49,8 @@ const Receipts = () => {
 
   const handleDelete = async (id) => {
     try {
-      // await axios.delete(`http://172.16.4.46:8000/api/delete/${id}`);
-      await axios.delete(`http://localhost:8000/api/delete/${id}`);
+      await axios.delete(`http://172.16.4.46:8000/api/delete/${id}`);
+      // await axios.delete(`http://localhost:8000/api/delete/${id}`);
       setReceipts((prevReceipts) => prevReceipts.filter((receipt) => receipt.id !== id));
     } catch (error) {
       console.error('Error deleting receipt:', error.response ? error.response.data : error.message);
@@ -62,14 +63,16 @@ const Receipts = () => {
     const nameMatch = receipt.nomComplet.toLowerCase().includes(nameFilter.toLowerCase());
     const objetMatch = receipt.paymentReason.toLowerCase().includes(objetFilter.toLowerCase());
     const monthMatch = monthFilter ? new Date(receipt.date).getMonth() + 1 === parseInt(monthFilter) : true;
+    const yearMatch = yearFilter ? new Date(receipt.date).getFullYear() === parseInt(yearFilter) : true;
     const paymentTypeMatch = paymentTypeFilter ? receipt.paymentType.toLowerCase() === paymentTypeFilter.toLowerCase() : true;
     const classMatch = classeFilter ? receipt.classe.toLowerCase() === classeFilter.toLowerCase() : true;
 
-    return nameMatch && monthMatch && paymentTypeMatch && classMatch && objetMatch;
+    return nameMatch && monthMatch && paymentTypeMatch && classMatch && objetMatch && yearMatch;
   });
 
   // Extract unique values for "Mois" and "Type de Paiement" filters
   const uniqueMonths = Array.from(new Set(receipts.map((receipt) => new Date(receipt.date).getMonth() + 1)));
+  const uniqueYears = Array.from(new Set(receipts.map((receipt) => new Date(receipt.date).getFullYear())));
   const uniquePaymentTypes = Array.from(new Set(receipts.map((receipt) => receipt.paymentType.toLowerCase())));
   const uniqueClasses = Array.from(new Set(receipts.map((receipt) => receipt.classe.toLowerCase())));
 
@@ -81,6 +84,11 @@ const Receipts = () => {
       </header>
 
       <div className="container mt-4 bg-white">
+      <div className="col text-end">
+          <Link to="/receiptform" className="btn btn-primary">
+            Nouveau
+          </Link>
+        </div>
         <div className="mb-4">
           {/* Filter inputs */}
           <div className="row">
@@ -93,16 +101,17 @@ const Receipts = () => {
                 onChange={(e) => setNameFilter(e.target.value)}
               />
             </div>
-            <div className="col-md-2">
+            <div className="col-md-1">
               <label className="form-label">Classe</label>
               <select
                 className="form-select"
                 value={classeFilter}
                 onChange={(e) => setClasseFilter(e.target.value)}
+                style={{ textTransform: 'uppercase' }}
               >
-                <option value="">Tous</option>
+                <option value="">All</option>
                 {uniqueClasses.map((classe) => (
-                  <option key={classe} value={classe}>
+                  <option key={classe} value={classe} style={{ textTransform: 'uppercase' }}>
                     {classe}
                   </option>
                 ))}
@@ -114,11 +123,27 @@ const Receipts = () => {
                 className="form-select"
                 value={monthFilter}
                 onChange={(e) => setMonthFilter(e.target.value)}
+                style={{ textTransform: 'uppercase' }}
               >
-                <option value="">Tous</option>
+                <option value="">All</option>
                 {uniqueMonths.map((month) => (
-                  <option key={month} value={month}>
+                  <option key={month} value={month} style={{ textTransform: 'uppercase' }}>
                     {formatMonth(month)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-md-2">
+              <label className="form-label">Annee</label>
+              <select
+                className="form-select"
+                value={yearFilter}
+                onChange={(e) => setYearFilter(e.target.value)}
+              >
+                <option value="">All</option>
+                {uniqueYears.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
                   </option>
                 ))}
               </select>
@@ -138,20 +163,16 @@ const Receipts = () => {
                 className="form-select"
                 value={paymentTypeFilter}
                 onChange={(e) => setPaymentTypeFilter(e.target.value)}
+                style={{ textTransform: 'uppercase' }}
               >
                 <option value="">Tous</option>
                 {uniquePaymentTypes.map((paymentType) => (
-                  <option key={paymentType} value={paymentType}>
+                  <option key={paymentType} value={paymentType} style={{ textTransform: 'uppercase' }}>
                     {paymentType}
                   </option>
                 ))}
               </select>
             </div>
-            <div className="col-md-2">
-          <Link to="/receiptform" className="btn btn-primary">
-            Nouveau
-          </Link>
-        </div>
           </div>
         </div>
 
@@ -172,7 +193,9 @@ const Receipts = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredReceipts.map((receipt) => (
+          {filteredReceipts
+            .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort by date in descending order
+            .map((receipt) => (
               <tr key={receipt.id}>
                 <th scope="row">{receipt.dossierNumber}</th>
                 <td style={{ textTransform: 'uppercase' }}>{receipt.nomComplet}</td>

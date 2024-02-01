@@ -28,7 +28,7 @@ const ReceiptDetails = () => {
 
   if (!receiptData) {
     // Vous pouvez afficher un indicateur de chargement ici si nécessaire
-    return <div>Loading...</div>;
+    return <div>Chargement.......</div>;
   }
 
   const formatDate = (dateString) => {

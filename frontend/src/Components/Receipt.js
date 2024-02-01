@@ -86,7 +86,7 @@ const Receipt = ({ data }) => {
           Numéro de Dossier : <strong style={{ textTransform: 'uppercase' }}> {dossierNumber}  </strong>                                   
         </p>
         <p>
-          NIVEAU : <strong>{classe}</strong>
+          NIVEAU : <strong style={{ textTransform: 'uppercase' }}>{classe}</strong>
         </p>
         <p>
           TEL : <strong> {phoneNumber} </strong>
