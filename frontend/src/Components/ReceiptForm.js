@@ -10,6 +10,7 @@ const ReceiptForm = ({ onSave }) => {
     nomComplet: '',
     amount: '',
     paymentType: 'Espèce',
+    chequeDetails: '',
     dossierNumber: '',
     phoneNumber: '-',
     paymentReason: '',
@@ -31,8 +32,8 @@ const ReceiptForm = ({ onSave }) => {
   const handleSaveClick = async () => {
     try {
       // Send a POST request to your Laravel backend API endpoint
-      const response = await axios.post('http://172.16.4.46:8000/api/storeReceipt', formData);
-      // const response = await axios.post('http://localhost:8000/api/storeReceipt', formData);
+      // const response = await axios.post('http://172.16.4.46:8000/api/storeReceipt', formData);
+      const response = await axios.post('http://localhost:8000/api/storeReceipt', formData);
 
       // Handle the response as needed
       console.log('Response from server:', response.data);
@@ -129,6 +130,19 @@ const ReceiptForm = ({ onSave }) => {
                     <option value="Virement">Virement</option>
                   </select>
                 </div>
+                {formData.paymentType === 'Chèque' && (
+                  <div className="form-group">
+                    <label htmlFor="chequeDetails" style={{ fontWeight: 'bold' }}>Détails du chèque :</label>
+                    <input
+                      type="text"
+                      name="chequeDetails"
+                      value={formData.chequeDetails}
+                      onChange={handleInputChange}
+                      className="form-control"
+                    />
+                  </div>
+                )}
+
               </div>
               <div className="form-group">
                 <label htmlFor="dossierNumber" style={{ fontWeight: 'bold' }}>Numéro de dossier :</label>

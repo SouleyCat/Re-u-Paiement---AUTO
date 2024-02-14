@@ -21,6 +21,7 @@ class ReceiptController extends Controller
         $request->validate([
             'nomComplet' => 'required',
             'paymentType' => 'required',
+            'chequeDetails' => 'nullable',
             'dossierNumber' => 'required',
             'amount'=>'required',
             'date' => 'required|date',

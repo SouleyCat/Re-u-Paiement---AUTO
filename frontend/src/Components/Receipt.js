@@ -8,6 +8,7 @@ const Receipt = ({ data }) => {
     date,
     nomComplet,
     amount,
+    chequeDetails,
     paymentType,
     dossierNumber,
     phoneNumber,
@@ -81,6 +82,9 @@ const Receipt = ({ data }) => {
         </p>
         <p>
          VIA : <strong style={{ textTransform: 'uppercase' }}> {paymentType} </strong>
+         {paymentType === 'Chèque' && (
+            <span> - Détails du chèque: <strong>{chequeDetails}</strong></span>
+        )}
         </p>
         <p>
           Numéro de Dossier : <strong style={{ textTransform: 'uppercase' }}> {dossierNumber}  </strong>                                   

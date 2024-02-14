@@ -16,7 +16,9 @@ const ReceiptDetails = () => {
     const fetchReceiptById = async () => {
       try {
         // Fetch selected receipt by ID
-        const response = await axios.get(`http://172.16.4.46:8000/api/receipt/${id}`);
+        // const response = await axios.get(`http://172.16.4.46:8000/api/receipt/${id}`);
+        const response = await axios.get(`http://localhost:8000/api/receipt/${id}`);
+
         setReceiptData(response.data.receipt);
       } catch (error) {
         console.error('Erreur lors de la récupération des données du reçu:', error);
@@ -37,6 +39,9 @@ const ReceiptDetails = () => {
     return formattedDate;
   };
 
+  const formatAmount = (amount) => {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
   return (
     <>
       <div className="py-5 w-100" style={{ position: 'relative', backgroundColor: '#284081' }}>
@@ -89,11 +94,15 @@ const ReceiptDetails = () => {
         
         <p>NOM DE L’ETUDIANT : <strong style={{ textTransform: 'uppercase' }}> {receiptData.nomComplet} </strong></p>
         <p>
-          SOMME REÇUE : <strong>{receiptData.amount} FCFA</strong> 
+          SOMME REÇUE : <strong>{formatAmount(receiptData.amount)} FCFA</strong> 
         </p>
+
         <p>
-         VIA : <strong style={{ textTransform: 'uppercase' }}> {receiptData.paymentType} </strong>
-        </p>
+        VIA : <strong style={{ textTransform: 'uppercase' }}> {receiptData.paymentType} </strong>
+        {receiptData.paymentType === 'Chèque' && (
+            <span> - <strong>{receiptData.chequeDetails}</strong></span>
+        )}
+    </p>
         <p>
           Numéro de Dossier : <strong style={{ textTransform: 'uppercase' }}> {receiptData.dossierNumber}  </strong>                                   
         </p>
