@@ -32,8 +32,8 @@ const ReceiptForm = ({ onSave }) => {
   const handleSaveClick = async () => {
     try {
       // Send a POST request to your Laravel backend API endpoint
-      // const response = await axios.post('http://172.16.4.46:8000/api/storeReceipt', formData);
-      const response = await axios.post('http://localhost:8000/api/storeReceipt', formData);
+      const response = await axios.post('http://172.16.4.46:8000/api/storeReceipt', formData);
+      // const response = await axios.post('http://localhost:8000/api/storeReceipt', formData);
 
       // Handle the response as needed
       console.log('Response from server:', response.data);

@@ -9,6 +9,7 @@ const Receipts = () => {
   const [receipts, setReceipts] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
   const [objetFilter, setObjetFilter] = useState('');
+  const [dayFilter, setDayFilter] = useState('');
   const [monthFilter, setMonthFilter] = useState('');
   const [yearFilter, setYearFilter] = useState('');
   const [paymentTypeFilter, setPaymentTypeFilter] = useState('');
@@ -63,16 +64,18 @@ const Receipts = () => {
     const nameMatch = receipt.nomComplet.toLowerCase().includes(nameFilter.toLowerCase());
     const objetMatch = receipt.paymentReason.toLowerCase().includes(objetFilter.toLowerCase());
     const monthMatch = monthFilter ? new Date(receipt.date).getMonth() + 1 === parseInt(monthFilter) : true;
+    const dayMatch = dayFilter ? new Date(receipt.date).getDate() === parseInt(dayFilter) : true;
     const yearMatch = yearFilter ? new Date(receipt.date).getFullYear() === parseInt(yearFilter) : true;
     const paymentTypeMatch = paymentTypeFilter ? receipt.paymentType.toLowerCase() === paymentTypeFilter.toLowerCase() : true;
     const classMatch = classeFilter ? receipt.classe.toLowerCase() === classeFilter.toLowerCase() : true;
 
-    return nameMatch && monthMatch && paymentTypeMatch && classMatch && objetMatch && yearMatch;
+    return nameMatch && monthMatch && paymentTypeMatch && classMatch && objetMatch && yearMatch &&dayMatch;
   });
 
   // Extract unique values for "Mois" and "Type de Paiement" filters
   const uniqueMonths = Array.from(new Set(receipts.map((receipt) => new Date(receipt.date).getMonth() + 1)));
   const uniqueYears = Array.from(new Set(receipts.map((receipt) => new Date(receipt.date).getFullYear())));
+  const uniqueDays = Array.from(new Set(receipts.map((receipt) => new Date(receipt.date).getDate()))); 
   const uniquePaymentTypes = Array.from(new Set(receipts.map((receipt) => receipt.paymentType.toLowerCase())));
   const uniqueClasses = Array.from(new Set(receipts.map((receipt) => receipt.classe.toLowerCase())));
 
@@ -113,6 +116,21 @@ const Receipts = () => {
                 {uniqueClasses.map((classe) => (
                   <option key={classe} value={classe} style={{ textTransform: 'uppercase' }}>
                     {classe}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-md-1">
+              <label className="form-label">Jour</label>
+              <select
+                className="form-select"
+                value={dayFilter}
+                onChange={(e) => setDayFilter(e.target.value)}
+              >
+                <option value="">Tous</option>
+                {uniqueDays.sort().map((day) => (
+                  <option key={day} value={day}>
+                    {day}
                   </option>
                 ))}
               </select>

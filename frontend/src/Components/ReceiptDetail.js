@@ -16,8 +16,8 @@ const ReceiptDetails = () => {
     const fetchReceiptById = async () => {
       try {
         // Fetch selected receipt by ID
-        // const response = await axios.get(`http://172.16.4.46:8000/api/receipt/${id}`);
-        const response = await axios.get(`http://localhost:8000/api/receipt/${id}`);
+        const response = await axios.get(`http://172.16.4.46:8000/api/receipt/${id}`);
+        // const response = await axios.get(`http://localhost:8000/api/receipt/${id}`);
 
         setReceiptData(response.data.receipt);
       } catch (error) {
