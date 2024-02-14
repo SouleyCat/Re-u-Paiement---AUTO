@@ -128,9 +128,9 @@ const Receipts = () => {
                 onChange={(e) => setDayFilter(e.target.value)}
               >
                 <option value="">Tous</option>
-                {uniqueDays.sort().map((day) => (
-                  <option key={day} value={day}>
-                    {day}
+                {[...Array(31)].map((_, index) => (
+                  <option key={index + 1} value={index + 1}>
+                    {index + 1}
                   </option>
                 ))}
               </select>
