@@ -22,8 +22,8 @@ const Receipts = () => {
 
   const fetchReceipts = async () => {
     try {
-      const response = await axios.get('http://172.16.4.46:8000/api/receipts');
-      // const response = await axios.get('http://localhost:8000/api/receipts');
+      // const response = await axios.get('http://172.16.4.46:8000/api/receipts');
+      const response = await axios.get('http://localhost:8000/api/receipts');
 
       setReceipts(response.data.receipts);
     } catch (error) {
@@ -43,10 +43,6 @@ const Receipts = () => {
     return formattedMonth;
   };
   
-
-
-
-
 
   const handleDelete = async (id) => {
     try {
