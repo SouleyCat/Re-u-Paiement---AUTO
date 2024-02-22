@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: react.Dockerfile
+      restart: unless-stopped
+
     ports:
       - "80:80"
     volumes:
